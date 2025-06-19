@@ -16,8 +16,8 @@ export function Layout({ children }: LayoutProps) {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-100">
-            <header className="bg-white shadow-md sticky top-0 z-50">
+        <div className="min-h-screen w-screen flex flex-col bg-gray-100">
+            <header className="bg-white w-full shadow-md sticky top-0 z-50">
                 <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -61,13 +61,13 @@ export function Layout({ children }: LayoutProps) {
                                 <div className="flex items-center space-x-4">
                                     <Link
                                         to="/login"
-                                        className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                                        className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium transition-colors"
                                     >
                                         Iniciar sesión
                                     </Link>
                                     <Link
                                         to="/register"
-                                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md !text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                                     >
                                         Registrarse
                                     </Link>
@@ -78,7 +78,7 @@ export function Layout({ children }: LayoutProps) {
                 </nav>
             </header>
 
-            <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <main className="flex-grow w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 {children}
             </main>
 
