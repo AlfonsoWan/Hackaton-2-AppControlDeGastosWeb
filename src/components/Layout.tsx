@@ -22,7 +22,7 @@ export function Layout({ children }: LayoutProps) {
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="flex-shrink-0 flex items-center">
-                                <Link to="/" className="text-xl font-bold text-gray-800 hover:text-indigo-600 transition-colors">
+                                <Link to="/" className="text-xl font-bold hover:!text-indigo-800 transition-colors">
                                     Control de Gastos
                                 </Link>
                             </div>
@@ -61,7 +61,7 @@ export function Layout({ children }: LayoutProps) {
                                 <div className="flex items-center space-x-4">
                                     <Link
                                         to="/login"
-                                        className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                                        className="hover:!text-indigo-800 px-3 py-2 rounded-md text-sm font-medium transition-colors"
                                     >
                                         Iniciar sesión
                                     </Link>
