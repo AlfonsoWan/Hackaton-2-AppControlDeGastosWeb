@@ -7,7 +7,8 @@ import { useNotification } from '../contexts/NotificationContext';
 const calculatePasswordStrength = (password: string): { strength: number; message: string; color: string } => {
     let strength = 0;
     let message = '';
-    let color = ''; if (password.length >= 8) {
+    let color = '';
+    if (password.length >= 12) {
         strength += 1;
     }
     if (password.match(/[a-z]+/)) {
@@ -91,8 +92,8 @@ export function RegisterPage() {
             setError('El correo electrónico no es válido');
             return false;
         }
-        if (formData.password.length < 6) {
-            setError('La contraseña debe tener al menos 6 caracteres');
+        if (formData.password.length < 12) {
+            setError('La contraseña debe tener al menos 12 caracteres');
             return false;
         }
         if (formData.password !== formData.confirmPassword) {
@@ -177,13 +178,15 @@ export function RegisterPage() {
                         <div>
                             <label htmlFor="password" className="sr-only">
                                 Contraseña
-                            </label>                            <input
+                            </label>
+                            <input
                                 id="password"
                                 name="password"
                                 type="password"
                                 required
+                                minLength={12}
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Contraseña"
+                                placeholder="Contraseña (mínimo 12 caracteres)"
                                 value={formData.password}
                                 onChange={handleChange}
                             />
@@ -201,7 +204,7 @@ export function RegisterPage() {
                                         </span>
                                     </div>
                                     <p className="mt-1 text-xs text-gray-500">
-                                        La contraseña debe incluir mayúsculas, minúsculas, números y caracteres especiales
+                                        La contraseña debe tener mínimo 12 caracteres, incluir mayúsculas, minúsculas, números y caracteres especiales
                                     </p>
                                 </div>
                             )}
