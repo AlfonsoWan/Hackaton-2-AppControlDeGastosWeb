@@ -1,19 +1,16 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
-  "include": ["src/**/*"],
-  "exclude": ["build"],
   "compilerOptions": {
-  "target": "ES2018",
-  "module": "ES6",
-  "rootDir": "./src",
-  "outDir": "./src",
-  "esModuleInterop": true,
-  "forceConsistentCasingInFileNames": true,
-  "strict": true,
-  "skipLibCheck": true
-}
+    "target": "ES2018",
+    "module": "ES6",
+    "rootDir": "./src",
+    "outDir": "./dist",          // Cambiado a una carpeta separada (evita sobreescribir 'src')
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",         // Añadido para soporte de React
+    "moduleResolution": "node",  // Recomendado para Vite/React
+    "lib": ["DOM", "DOM.Iterable", "ES2018"]  // Añadido para APIs del navegador
+  },
+  "include": ["src/**/*"],      // Incluye todo en 'src'
+  "exclude": ["node_modules", "dist"]  // Excluye carpetas de build y dependencias
 }
