@@ -4,6 +4,55 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthService } from '../services/auth.service';
 import { useNotification } from '../contexts/NotificationContext';
 
+const calculatePasswordStrength = (password: string): { strength: number; message: string; color: string } => {
+    let strength = 0;
+    let message = '';
+    let color = ''; if (password.length >= 8) {
+        strength += 1;
+    }
+    if (password.match(/[a-z]+/)) {
+        strength += 1;
+    }
+    if (password.match(/[A-Z]+/)) {
+        strength += 1;
+    }
+    if (password.match(/[0-9]+/)) {
+        strength += 1;
+    }
+    if (password.match(/[!@#$%^&*(),.?":{}|<>]+/)) {
+        strength += 1;
+    }
+
+    switch (strength) {
+        case 0:
+            message = 'Muy débil';
+            color = 'bg-red-500';
+            break;
+        case 1:
+            message = 'Débil';
+            color = 'bg-red-400';
+            break;
+        case 2:
+            message = 'Regular';
+            color = 'bg-yellow-500';
+            break;
+        case 3:
+            message = 'Buena';
+            color = 'bg-green-400';
+            break;
+        case 4:
+        case 5:
+            message = 'Fuerte';
+            color = 'bg-green-600';
+            break;
+        default:
+            message = '';
+            color = 'bg-gray-200';
+    }
+
+    return { strength, message, color };
+};
+
 export function RegisterPage() {
     const [formData, setFormData] = useState({
         name: '',
@@ -11,6 +60,7 @@ export function RegisterPage() {
         password: '',
         confirmPassword: ''
     });
+    const [passwordStrength, setPasswordStrength] = useState({ strength: 0, message: '', color: 'bg-gray-200' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -22,6 +72,10 @@ export function RegisterPage() {
             ...prev,
             [name]: value
         }));
+
+        if (name === 'password') {
+            setPasswordStrength(calculatePasswordStrength(value));
+        }
     };
 
     const validateForm = () => {
@@ -123,8 +177,7 @@ export function RegisterPage() {
                         <div>
                             <label htmlFor="password" className="sr-only">
                                 Contraseña
-                            </label>
-                            <input
+                            </label>                            <input
                                 id="password"
                                 name="password"
                                 type="password"
@@ -134,6 +187,24 @@ export function RegisterPage() {
                                 value={formData.password}
                                 onChange={handleChange}
                             />
+                            {formData.password && (
+                                <div className="mt-1">
+                                    <div className="flex items-center space-x-2">
+                                        <div className="flex-1 h-2 rounded-full bg-gray-200">
+                                            <div
+                                                className={`h-full rounded-full ${passwordStrength.color}`}
+                                                style={{ width: `${(passwordStrength.strength / 5) * 100}%` }}
+                                            ></div>
+                                        </div>
+                                        <span className="text-sm text-gray-600">
+                                            {passwordStrength.message}
+                                        </span>
+                                    </div>
+                                    <p className="mt-1 text-xs text-gray-500">
+                                        La contraseña debe incluir mayúsculas, minúsculas, números y caracteres especiales
+                                    </p>
+                                </div>
+                            )}
                         </div>
                         <div>
                             <label htmlFor="confirmPassword" className="sr-only">
@@ -151,7 +222,6 @@ export function RegisterPage() {
                             />
                         </div>
                     </div>
-
                     <div>
                         <button
                             type="submit"
